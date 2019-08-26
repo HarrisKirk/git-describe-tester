@@ -5,7 +5,8 @@ addCommit() {
 }
 graph() {
 #    git log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s" --simplify-by-decoration
-    git log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s" 
+    git log --graph --full-history --all --color \
+    --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s" 
 }
 
 repo_root="./build"
@@ -25,11 +26,11 @@ git tag -m "Annotated" 0.0.1
 addCommit "next commit"
 addCommit "next commit"
 
-git checkout -b "featureA"
+git checkout --quiet -b "featureA"
 addCommit "commit 1 on branch"
 addCommit "commit 2 on branch"
 
-git checkout master
+git checkout --quiet master
 addCommit "moving fwd on master"
 
 
