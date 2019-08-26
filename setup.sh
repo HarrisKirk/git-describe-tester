@@ -35,10 +35,7 @@ addCommit "moving fwd on master"
 
 
 graph 
+echo ""
+echo "master   : $(git describe --always master)"
+echo "featureA : $(git describe --always featureA)"
 
-git describe --always
-
-
-
-
-echo "Done"
