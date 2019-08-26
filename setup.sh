@@ -40,8 +40,8 @@ git checkout --quiet master
 addCommit "moving fwd on master"
 addCommit "moving fwd on master"
 
-git merge featureA
-git checkout --theirs .
+git merge --quiet featureA >/dev/null
+git checkout --quiet --theirs .
 git add .
 git commit -m "Use theirs"
 
