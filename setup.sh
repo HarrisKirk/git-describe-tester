@@ -40,9 +40,15 @@ git checkout --quiet master
 addCommit "moving fwd on master"
 addCommit "moving fwd on master"
 
+git merge featureA
+git checkout --theirs .
+git add .
+git commit -m "Use theirs"
+
 
 graph 
 echo ""
-echo "master   : $(git describe --always --match '0.0.*' master)"
+#echo "master   : $(git describe --always --match '0.0.*' master)"
+echo "master   : $(git describe --always master)"
 echo "featureA : $(git describe --always featureA)"
 
