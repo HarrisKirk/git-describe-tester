@@ -1,3 +1,6 @@
+#!/usr/bin/bash 
+
+echo "---------------------------------"
 addCommit() {
     echo `date` >> README.md
     git add README.md
@@ -11,6 +14,7 @@ graph() {
 tag() {
     git tag -m "Annotated" $1 
 }
+
 
 repo_root="./build"
 repo_name="mygitrepo"
