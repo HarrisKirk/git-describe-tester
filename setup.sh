@@ -1,6 +1,8 @@
 #!/usr/bin/bash 
 
-echo "---------------------------------"
+repo_root="./build"
+repo_name="mygitrepo"
+
 addCommit() {
     echo `date` >> README.md
     git add README.md
@@ -15,44 +17,44 @@ tag() {
     git tag -m "Annotated" $1 
 }
 
+scenarioNoTag() {
+    rm -rf ${repo_root}
+    mkdir -p ${repo_root}/${repo_name}
+    cd ${repo_root}/${repo_name}
 
-repo_root="./build"
-repo_name="mygitrepo"
+    git init --quiet
+    git config core.autocrlf false
 
-rm -rf ${repo_root}
-mkdir -p ${repo_root}/${repo_name}
-cd ${repo_root}/${repo_name}
+    addCommit "First commit"
 
-git init --quiet
-git config core.autocrlf false
+    tag "0.0.1"
 
-addCommit "First commit"
+    addCommit "next commit"
+    addCommit "next commit"
 
-tag "0.0.1"
+    git checkout --quiet -b "featureA"
+    tag "0.1.0"
+    addCommit "commit 1 on branch"
+    addCommit "commit 2 on branch"
+    tag "0.1.1"
+    addCommit "commit 2 on branch"
 
-addCommit "next commit"
-addCommit "next commit"
+    git checkout --quiet master
+    addCommit "moving fwd on master"
+    addCommit "moving fwd on master"
 
-git checkout --quiet -b "featureA"
-tag "0.1.0"
-addCommit "commit 1 on branch"
-addCommit "commit 2 on branch"
-tag "0.1.1"
-addCommit "commit 2 on branch"
-
-git checkout --quiet master
-addCommit "moving fwd on master"
-addCommit "moving fwd on master"
-
-git merge --quiet featureA >/dev/null
-git checkout --quiet --theirs .
-git add .
-git commit -m "Use theirs"
+    git merge --quiet featureA >/dev/null
+    git checkout --quiet --theirs .
+    git add .
+    git commit -m "Use theirs"
 
 
-graph 
-echo ""
-#echo "master   : $(git describe --always --match '0.0.*' master)"
-echo "master   : $(git describe --always master)"
-echo "featureA : $(git describe --always featureA)"
+    graph 
+    echo ""
+    #echo "master   : $(git describe --always --match '0.0.*' master)"
+    echo "master   : $(git describe --always master)"
+    echo "featureA : $(git describe --always featureA)"
+}
+
+scenarioNoTag
 
